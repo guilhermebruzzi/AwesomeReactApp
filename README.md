@@ -5,6 +5,7 @@ I customized it after npm run eject by including:
 * css modules
 * react router
 * static-site-generator-webpack-plugin for each route
+* Support to github pages
 
 ## create-react-app README starts here
 Below you will find some information on how to perform common tasks.  
