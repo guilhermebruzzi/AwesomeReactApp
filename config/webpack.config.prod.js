@@ -3,6 +3,7 @@ var autoprefixer = require('autoprefixer');
 var webpack = require('webpack');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
+var url = require('url');
 var failPlugin = require('webpack-fail-plugin');
 var StaticSiteGeneratorPlugin = require('./static-pages-plugin');
 
@@ -19,6 +20,8 @@ var nodeModulesPath = path.join(__dirname, '..', 'node_modules');
 var indexHtmlPath = path.resolve(__dirname, relativePath, 'index.html');
 var faviconPath = path.resolve(__dirname, relativePath, 'favicon.ico');
 var buildPath = path.join(__dirname, isInNodeModules ? '../../..' : '..', 'build');
+var homepagePath = require(path.resolve(__dirname, relativePath, 'package.json')).homepage;
+var publicPath = homepagePath ? url.parse(homepagePath).pathname : '/';
 var routePaths = [
   '/',
   '/second-page/'
@@ -37,9 +40,7 @@ module.exports = {
     filename: '[name].[chunkhash].js',
     chunkFilename: '[name].[chunkhash].chunk.js',
     libraryTarget: 'umd',
-    // TODO: this wouldn't work for e.g. GH Pages.
-    // Good news: we can infer it from package.json :-)
-    publicPath: '/'
+    publicPath: publicPath
   },
   resolve: {
     extensions: ['', '.js'],
