@@ -1,16 +1,20 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { renderToString } from 'react-dom/server';
-import { Router, browserHistory, RoutingContext, match } from 'react-router';
-import { createMemoryHistory } from 'history';
+import { Router, useRouterHistory, RoutingContext, match } from 'react-router';
+import { createMemoryHistory, createHistory } from 'history';
 import routes from './routes';
 import './index.css';
 
 if (typeof document !== 'undefined') {
+  const basename = (location.hostname === 'guilhermebruzzi.github.io') ? '/AwesomeReactApp/' : '/';
+  const browserHistory = useRouterHistory(createHistory)({
+      basename,
+  });
   ReactDOM.render(
     <Router routes={routes} history={browserHistory}/>,
     document.getElementById('root')
-  )
+  );
 }
 
 // Exported static site renderer:
