@@ -21,6 +21,7 @@ if (typeof document !== 'undefined') {
 export default (locals, callback) => {
   const history = createMemoryHistory();
   const location = history.createLocation(locals.path);
+
   let layout = locals.templateContent; // Passed from static-pages-plugin
   layout = Handlebars.compile(layout); // Handlebars passed from webpack as global scope
 

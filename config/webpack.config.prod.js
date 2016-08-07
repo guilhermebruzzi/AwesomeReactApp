@@ -5,7 +5,7 @@ var HtmlWebpackPlugin = require('html-webpack-plugin');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var url = require('url');
 var failPlugin = require('webpack-fail-plugin');
-var StaticSiteGeneratorPlugin = require('./static-pages-plugin');
+var StaticPagesWebpackPlugin = require('./static-pages-plugin');
 
 // TODO: hide this behind a flag and eliminate dead code on eject.
 // This shouldn't be exposed to the user.
@@ -101,7 +101,7 @@ module.exports = {
   },
   plugins: [
     failPlugin,
-    new StaticSiteGeneratorPlugin('main', routePaths, locals, scope),
+    new StaticPagesWebpackPlugin('main', routePaths, locals, scope),
     new HtmlWebpackPlugin({
       inject: true,
       template: indexPath,
