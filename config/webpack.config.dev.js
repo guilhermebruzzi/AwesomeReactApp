@@ -16,7 +16,7 @@ if (isInDebugMode) {
 }
 var srcPath = path.resolve(__dirname, relativePath, 'src');
 var nodeModulesPath = path.join(__dirname, '..', 'node_modules');
-var indexHtmlPath = path.resolve(__dirname, relativePath, 'index.html');
+var indexPath = path.resolve(__dirname, relativePath, 'index.html');
 var faviconPath = path.resolve(__dirname, relativePath, 'favicon.ico');
 var buildPath = path.join(__dirname, isInNodeModules ? '../../..' : '..', 'build');
 
@@ -90,7 +90,7 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       inject: true,
-      template: indexHtmlPath,
+      template: indexPath,
       favicon: faviconPath,
     }),
     new webpack.DefinePlugin({ 'process.env.NODE_ENV': '"development"' }),

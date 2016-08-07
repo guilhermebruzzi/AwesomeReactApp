@@ -17,7 +17,7 @@ if (process.argv[2] === '--debug-template') {
 }
 var srcPath = path.resolve(__dirname, relativePath, 'src');
 var nodeModulesPath = path.join(__dirname, '..', 'node_modules');
-var indexHtmlPath = path.resolve(__dirname, relativePath, 'index.html');
+var indexPath = path.resolve(__dirname, relativePath, 'index.html');
 var faviconPath = path.resolve(__dirname, relativePath, 'favicon.ico');
 var buildPath = path.join(__dirname, isInNodeModules ? '../../..' : '..', 'build');
 var homepagePath = require(path.resolve(__dirname, relativePath, 'package.json')).homepage;
@@ -27,7 +27,7 @@ var routePaths = [
   '/second-page/'
 ];
 var locals = {};
-var scope = { window: {} }; // global
+var scope = { window: {}, Handlebars: require('handlebars') }; // global
 
 module.exports = {
   bail: true,
@@ -104,7 +104,7 @@ module.exports = {
     new StaticSiteGeneratorPlugin('main', routePaths, locals, scope),
     new HtmlWebpackPlugin({
       inject: true,
-      template: indexHtmlPath,
+      template: indexPath,
       favicon: faviconPath,
       minify: {
         removeComments: true,

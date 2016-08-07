@@ -21,10 +21,11 @@ if (typeof document !== 'undefined') {
 export default (locals, callback) => {
   const history = createMemoryHistory();
   const location = history.createLocation(locals.path);
-  const layout = locals.templateContent; // Passed from static-pages-plugin
+  let layout = locals.templateContent; // Passed from static-pages-plugin
+  layout = Handlebars.compile(layout); // Handlebars passed from webpack as global scope
 
   const generatePage = pageContent => {
-    return layout.replace('{# PAGE_CONTENT #}', pageContent);
+    return layout({ html: pageContent });
   };
 
   match({ routes, location }, (error, redirectLocation, renderProps) => {
