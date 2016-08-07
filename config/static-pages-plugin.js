@@ -5,16 +5,8 @@ const EventEmitter = require('events');
 class HtmlTemplateEmitter extends EventEmitter {}
 const htmlTemplateEmitter = new HtmlTemplateEmitter();
 
-Function.prototype.inheritsFrom = function( parentClassOrObject ){
-  this.prototype = new parentClassOrObject;
-  this.prototype.constructor = this;
-  this.prototype.parent = parentClassOrObject.prototype;
-  return this;
-};
-
 function StaticPagesWebpackPlugin() {
-  this.parent.constructor.apply(this.parent, arguments);
-  const compilerCallbacks = WebPackExtendPlugin(this.parent).compilerCallbacks;
+  const compilerCallbacks = WebPackExtendPlugin(this, arguments).compilerCallbacks;
   this.emitStaticFiles = compilerCallbacks['emit'];
 }
 
@@ -31,7 +23,7 @@ StaticPagesWebpackPlugin.prototype.apply = function(compiler) {
 
   compiler.plugin('emit', function(compiler, done) {
     htmlTemplateEmitter.on('html-plugin-data', function(htmlPluginData) {
-      self.parent.locals.templateContent = htmlPluginData.html.source();
+      self.locals.templateContent = htmlPluginData.html.source();
       self.emitStaticFiles(compiler, done);
     });
     done();
