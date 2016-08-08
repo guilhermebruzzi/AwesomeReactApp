@@ -1,12 +1,12 @@
 const StaticSiteGeneratorWebpackPlugin = require("static-site-generator-webpack-plugin");
-const WebPackExtendPlugin = require("./webpack-extend-plugin");
+const ExtendWebpackPlugin = require("extend-webpack-plugin");
 
 const EventEmitter = require('events');
 class HtmlTemplateEmitter extends EventEmitter {}
 const htmlTemplateEmitter = new HtmlTemplateEmitter();
 
 function StaticPagesWebpackPlugin() {
-  const compilerCallbacks = WebPackExtendPlugin(this, arguments).compilerCallbacks;
+  const compilerCallbacks = ExtendWebpackPlugin(this, arguments).compilerCallbacks;
   this.emitStaticFiles = compilerCallbacks['emit'];
 }
 
